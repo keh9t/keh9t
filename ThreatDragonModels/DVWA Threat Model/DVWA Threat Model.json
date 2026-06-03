@@ -28,8 +28,8 @@
             },
             "visible": true,
             "shape": "trust-boundary-box",
-            "id": "0d8214e3-68c9-4a59-93d6-43d22fa57bcd",
             "zIndex": -1,
+            "id": "0d8214e3-68c9-4a59-93d6-43d22fa57bcd",
             "data": {
               "type": "tm.BoundaryBox",
               "name": "Trust Boundary",
@@ -37,7 +37,8 @@
               "isTrustBoundary": true,
               "hasOpenThreats": false,
               "crossingFlows": [
-                "60658cfe-f905-4b9e-a5ae-0e6526b528a3"
+                "60658cfe-f905-4b9e-a5ae-0e6526b528a3",
+                "e6ebbd8c-bb3c-4d81-b30f-9bc532a3b4c5"
               ],
               "containedElements": [
                 "a00c044f-1a46-44b7-bf42-3d6e2e1129f0",
@@ -66,6 +67,7 @@
             },
             "visible": true,
             "shape": "actor",
+            "zIndex": 1,
             "ports": {
               "groups": {
                 "top": {
@@ -149,7 +151,6 @@
               ]
             },
             "id": "399e0249-f056-44c2-a9e8-5a50ad09f23e",
-            "zIndex": 1,
             "data": {
               "type": "tm.Actor",
               "name": "Пользователь",
@@ -186,6 +187,7 @@
             },
             "visible": true,
             "shape": "process",
+            "zIndex": 2,
             "ports": {
               "groups": {
                 "top": {
@@ -269,7 +271,6 @@
               ]
             },
             "id": "a00c044f-1a46-44b7-bf42-3d6e2e1129f0",
-            "zIndex": 2,
             "data": {
               "type": "tm.Process",
               "name": "PHP приложение",
@@ -309,6 +310,7 @@
             },
             "visible": true,
             "shape": "store",
+            "zIndex": 3,
             "ports": {
               "groups": {
                 "top": {
@@ -392,7 +394,6 @@
               ]
             },
             "id": "2214a15e-6ff9-4319-8f88-c29af18c13a7",
-            "zIndex": 3,
             "data": {
               "type": "tm.Store",
               "name": "MySql",
@@ -408,6 +409,80 @@
               "storesInventory": false,
               "threats": []
             }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "HTTP запрос",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": [
+                {
+                  "id": "c4f07e77-6cdc-4b4e-b9e2-a7e9bd8cca24",
+                  "title": "HTTP без шифрования — передача данных в открытом виде",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "Данные передаются по HTTP без шифрования. Логины, пароли и сессионные токены видны в сети при перехвате трафика (Man-in-the-Middle).",
+                  "mitigation": "Включить HTTPS, настроить HSTS заголовок, перенаправлять весь HTTP трафик на HTTPS.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 1,
+                  "score": ""
+                }
+              ],
+              "trustBoundaryIds": [
+                "0d8214e3-68c9-4a59-93d6-43d22fa57bcd"
+              ],
+              "threatFrequency": {
+                "tampering": 0,
+                "informationDisclosure": 1,
+                "denialOfService": 0
+              }
+            },
+            "labels": [
+              "HTTP запрос"
+            ],
+            "id": "60658cfe-f905-4b9e-a5ae-0e6526b528a3",
+            "source": {
+              "cell": "399e0249-f056-44c2-a9e8-5a50ad09f23e",
+              "port": "67019568-9d4a-4347-87e0-0ff35ad24e58"
+            },
+            "target": {
+              "cell": "a00c044f-1a46-44b7-bf42-3d6e2e1129f0",
+              "port": "bf4935d3-7c16-4fe5-b7a6-04727db19605"
+            },
+            "vertices": [
+              {
+                "x": 580,
+                "y": 190
+              }
+            ]
           },
           {
             "shape": "flow",
@@ -429,7 +504,7 @@
             "connector": "smooth",
             "data": {
               "type": "tm.Flow",
-              "name": "HTTP запрос",
+              "name": "SQL запрос",
               "description": "",
               "outOfScope": false,
               "isTrustBoundary": false,
@@ -440,21 +515,19 @@
               "isPublicNetwork": false,
               "protocol": "",
               "threats": [],
-              "trustBoundaryIds": [
-                "0d8214e3-68c9-4a59-93d6-43d22fa57bcd"
-              ]
+              "trustBoundaryIds": []
             },
             "labels": [
-              "HTTP запрос"
+              "SQL запрос"
             ],
-            "id": "60658cfe-f905-4b9e-a5ae-0e6526b528a3",
+            "id": "e2a2c3e2-ecc3-4153-8b49-39117e042fbf",
             "source": {
-              "cell": "399e0249-f056-44c2-a9e8-5a50ad09f23e",
-              "port": "67019568-9d4a-4347-87e0-0ff35ad24e58"
+              "cell": "a00c044f-1a46-44b7-bf42-3d6e2e1129f0",
+              "port": "e5f72a8f-3bba-453b-b5e9-17382fedd056"
             },
             "target": {
-              "cell": "a00c044f-1a46-44b7-bf42-3d6e2e1129f0",
-              "port": "bf4935d3-7c16-4fe5-b7a6-04727db19605"
+              "cell": "2214a15e-6ff9-4319-8f88-c29af18c13a7",
+              "port": "d53646b5-b9c3-4462-803a-0df49cc59bf9"
             },
             "vertices": []
           },
@@ -478,7 +551,7 @@
             "connector": "smooth",
             "data": {
               "type": "tm.Flow",
-              "name": "Data Flow",
+              "name": "HTTP ответ",
               "description": "",
               "outOfScope": false,
               "isTrustBoundary": false,
@@ -489,72 +562,34 @@
               "isPublicNetwork": false,
               "protocol": "",
               "threats": [],
-              "trustBoundaryIds": []
+              "trustBoundaryIds": [
+                "0d8214e3-68c9-4a59-93d6-43d22fa57bcd"
+              ]
             },
             "labels": [
-              "Data Flow"
+              "HTTP ответ"
             ],
-            "id": "024af9f5-645f-4d98-a736-b8b8ae7d8bb2",
+            "id": "e6ebbd8c-bb3c-4d81-b30f-9bc532a3b4c5",
             "source": {
-              "x": 140,
-              "y": 110
+              "cell": "a00c044f-1a46-44b7-bf42-3d6e2e1129f0",
+              "port": "bf4935d3-7c16-4fe5-b7a6-04727db19605"
             },
             "target": {
-              "x": 240,
-              "y": 210
-            }
-          },
-          {
-            "shape": "flow",
-            "attrs": {
-              "line": {
-                "stroke": "#333333",
-                "targetMarker": {
-                  "name": "block"
-                },
-                "sourceMarker": {
-                  "name": ""
-                },
-                "strokeDasharray": null
+              "cell": "399e0249-f056-44c2-a9e8-5a50ad09f23e",
+              "port": "67019568-9d4a-4347-87e0-0ff35ad24e58"
+            },
+            "vertices": [
+              {
+                "x": 570,
+                "y": 260
               }
-            },
-            "width": 200,
-            "height": 100,
-            "zIndex": 10,
-            "connector": "smooth",
-            "data": {
-              "type": "tm.Flow",
-              "name": "Data Flow",
-              "description": "",
-              "outOfScope": false,
-              "isTrustBoundary": false,
-              "reasonOutOfScope": "",
-              "hasOpenThreats": false,
-              "isBidirectional": false,
-              "isEncrypted": false,
-              "isPublicNetwork": false,
-              "protocol": "",
-              "threats": [],
-              "trustBoundaryIds": []
-            },
-            "labels": [
-              "Data Flow"
-            ],
-            "id": "aec00c52-2686-41d5-98ec-ec4673a39b9e",
-            "source": {
-              "x": 80,
-              "y": 200
-            },
-            "target": {
-              "x": 180,
-              "y": 300
-            }
+            ]
           }
         ]
       }
     ],
     "diagramTop": 1,
     "reviewer": "",
-    "threatTop": 0
+    "threatTop": 2
   }
 }
