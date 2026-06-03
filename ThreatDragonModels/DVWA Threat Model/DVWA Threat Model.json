@@ -60,8 +60,8 @@
                 "text": "Пользователь"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -158,9 +158,27 @@
               "isTrustBoundary": false,
               "outOfScope": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "providesAuthentication": false,
-              "threats": []
+              "threats": [
+                {
+                  "id": "8ba44427-ff2b-45d3-b8ac-9ccda8c8be3a",
+                  "title": "Дефолтные credentials (admin/password)",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Spoofing",
+                  "description": "Логины и пароли по умолчанию (admin/password, user/user) общеизвестны. Любой может войти в систему без взлома.",
+                  "mitigation": "Обязательная смена дефолтных паролей при установке. Документировать это требование.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 4,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 1,
+                "repudiation": 0
+              }
             },
             "children": [
               "ee363754-dd1d-4899-a94c-448a0228fc88"
@@ -180,8 +198,8 @@
                 "text": "PHP приложение"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -278,12 +296,41 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "handlesCardPayment": false,
               "handlesGoodsOrServices": false,
               "isWebApplication": false,
               "privilegeLevel": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "b1867e87-c35a-4647-96bc-b1a410b5a6b3",
+                  "title": "Загрузка вредоносного файла (Remote Code Execution)",
+                  "status": "Open",
+                  "severity": "Critical",
+                  "type": "Elevation of privilege",
+                  "description": "Нет проверки типа загружаемого файла. Атакующий может загрузить PHP-шелл и выполнить произвольный код на сервере через браузер.",
+                  "mitigation": "Проверять тип файла на сервере (whitelist). Хранить загрузки вне веб-корня. Запретить выполнение скриптов в папке uploads.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 6,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 0,
+                "repudiation": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 1
+              }
+            },
+            "tools": {
+              "items": [
+                "boundary",
+                "button-remove"
+              ],
+              "name": null
             }
           },
           {
@@ -300,11 +347,13 @@
                 "text": "MySql"
               },
               "topLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               },
               "bottomLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -401,13 +450,33 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "isALog": false,
               "isEncrypted": false,
               "isSigned": false,
               "storesCredentials": false,
               "storesInventory": false,
-              "threats": []
+              "threats": [
+                {
+                  "id": "ec52ff25-36f5-4c4c-8cbc-6388d1bcc585",
+                  "title": "Пароли хранятся в MD5",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "Пароли пользователей хранятся в MD5. При утечке БД все пароли восстанавливаются за минуты через rainbow tables или брутфорс на GPU.",
+                  "mitigation": "Заменить MD5 на bcrypt или Argon2. Добавить соль к каждому паролю.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 5,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 0,
+                "repudiation": 0,
+                "informationDisclosure": 1,
+                "denialOfService": 0
+              }
             }
           },
           {
@@ -504,53 +573,6 @@
             "connector": "smooth",
             "data": {
               "type": "tm.Flow",
-              "name": "SQL запрос",
-              "description": "",
-              "outOfScope": false,
-              "isTrustBoundary": false,
-              "reasonOutOfScope": "",
-              "hasOpenThreats": false,
-              "isBidirectional": false,
-              "isEncrypted": false,
-              "isPublicNetwork": false,
-              "protocol": "",
-              "threats": [],
-              "trustBoundaryIds": []
-            },
-            "labels": [
-              "SQL запрос"
-            ],
-            "id": "e2a2c3e2-ecc3-4153-8b49-39117e042fbf",
-            "source": {
-              "cell": "a00c044f-1a46-44b7-bf42-3d6e2e1129f0",
-              "port": "e5f72a8f-3bba-453b-b5e9-17382fedd056"
-            },
-            "target": {
-              "cell": "2214a15e-6ff9-4319-8f88-c29af18c13a7",
-              "port": "d53646b5-b9c3-4462-803a-0df49cc59bf9"
-            },
-            "vertices": []
-          },
-          {
-            "shape": "flow",
-            "attrs": {
-              "line": {
-                "stroke": "#333333",
-                "targetMarker": {
-                  "name": "block"
-                },
-                "sourceMarker": {
-                  "name": ""
-                },
-                "strokeDasharray": null
-              }
-            },
-            "width": 200,
-            "height": 100,
-            "zIndex": 10,
-            "connector": "smooth",
-            "data": {
-              "type": "tm.Flow",
               "name": "HTTP ответ",
               "description": "",
               "outOfScope": false,
@@ -584,12 +606,84 @@
                 "y": 260
               }
             ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "SQL запрос",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": [
+                {
+                  "id": "9ccdf417-1dfc-45ab-9875-ee4598413524",
+                  "title": "SQL-инъекция через пользовательский ввод",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "Пользовательский ввод передаётся напрямую в SQL запрос без экранирования. Атакующий может получить все данные из БД или выполнить произвольные команды.",
+                  "mitigation": "Использовать параметризованные запросы (prepared statements). Никогда не собирать SQL запросы конкатенацией строк.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 3,
+                  "score": ""
+                }
+              ],
+              "trustBoundaryIds": [],
+              "threatFrequency": {
+                "tampering": 1,
+                "informationDisclosure": 0,
+                "denialOfService": 0
+              }
+            },
+            "labels": [
+              "SQL запрос"
+            ],
+            "id": "e2a2c3e2-ecc3-4153-8b49-39117e042fbf",
+            "source": {
+              "cell": "a00c044f-1a46-44b7-bf42-3d6e2e1129f0",
+              "port": "e5f72a8f-3bba-453b-b5e9-17382fedd056"
+            },
+            "target": {
+              "cell": "2214a15e-6ff9-4319-8f88-c29af18c13a7",
+              "port": "d53646b5-b9c3-4462-803a-0df49cc59bf9"
+            },
+            "vertices": [
+              {
+                "x": 810,
+                "y": 220
+              }
+            ]
           }
         ]
       }
     ],
     "diagramTop": 1,
     "reviewer": "",
-    "threatTop": 2
+    "threatTop": 6
   }
 }
